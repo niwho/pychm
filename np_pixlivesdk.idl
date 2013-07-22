@@ -1,0 +1,296 @@
+// np_pixlivesdk.idl : type library source for ActiveX Control project.
+
+// This file will be processed by the MIDL compiler tool to
+// produce the type library (np_pixlivesdk.tlb) that will become a resource in
+// np_pixlivesdk.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+import "ocidl.idl";
+import "oaidl.idl";
+[
+	object,
+	uuid(CF2FE3A3-BF55-469C-8261-630570E6E01D),
+	dual,
+	nonextensible,
+	helpstring("INPLiveSDK Interface"),
+	pointer_default(unique)
+]
+interface INPLiveSDK : IDispatch{
+
+	/// 初始化 
+	[id(1), helpstring("method Init")] HRESULT Init([out,retval] INT* ret);
+
+	/// 清理资源
+	[id(2), helpstring("method Cleanup")] HRESULT Cleanup([out,retval] INT* ret);
+	
+	/// 播放视频文件
+	/// @param[in]	hwnd		显示窗口句柄
+	/// @param[in]	fileName	文件名,如:"D:\test.mbf" 或 "test.mbf"
+	/// @param[out]	filePlayHD	返回文件播放句柄
+	[id(3), helpstring("method PlayFile")] HRESULT PlayFile([in] LONG hwnd, [in] BSTR fileName , [out,retval] LONG* filePlayHD);
+
+	/// 文件播放控制
+	/// @param[in]	filePlayHD	文件播放句柄,由PlayFile()获得
+	/// @param[in]	command		控制命令
+	///	0 - 播放 
+	/// 1 - 暂停
+	/// 2 - 快放
+	/// 3 - 慢放
+	/// 4 - 正常
+	/// 5 - 单帧播放
+	[id(4), helpstring("method PlayFileControl")] HRESULT PlayFileControl([in] LONG filePlayHD, [in] INT command, [out,retval] INT* ret);
+	
+	/// 停止播放视频文件
+	/// @param[in]	filePlayHD	文件播放句柄,由PlayFile()获得
+	[id(5), helpstring("method StopPlayFile")] HRESULT StopPlayFile([in] LONG filePlayHD, [out,retval] INT* ret);
+	
+	/// 得到当前播放状态
+	/// @param[in]	filePlayHD	文件播放句柄,由PlayFile()获得
+	/// @param[out] status		返回当前的播放状态
+	///	0 - 播放 
+	/// 1 - 暂停
+	/// 2 - 快放
+	/// 3 - 慢放
+	/// 4 - 正常
+	/// 5 - 单帧播放
+	[id(6), helpstring("method GetPlayStatus")] HRESULT GetPlayStatus([in] LONG filePlayHD, [out,retval] INT* status);
+
+	/// 得到当前播放速度
+	/// @param[in]	filePlayHD	文件播放句柄,由PlayFile()获得
+	/// @param[out] speed		返回当前的播放速度
+	///	-3 - 慢8倍速播放 
+	///	-2 - 慢4倍速播放 
+	///	-1 - 慢2倍速播放 
+	///	 0 - 正常播放 
+	///	 1 - 快2倍速播放 
+	///	 2 - 快4倍速播放 
+	///	 3 - 快8倍速播放 
+	[id(7), helpstring("method GetPlaySpeed")] HRESULT GetPlaySpeed([in] LONG filePlayHD, [out,retval] INT* speed);
+	
+	/// 得到当前播放进度
+	/// @param[in]	filePlayHD	文件播放句柄,由PlayFile()获得
+	/// @param[out] pos			返回当前的播放进度,单位：毫秒(ms)
+	[id(8), helpstring("method GetPlayPosition")] HRESULT GetPlayPosition([in] LONG filePlayHD, [out,retval] DWORD* pos);
+
+	/// 得到当前文件的总长度
+	/// @param[in]	filePlayHD	文件播放句柄,由PlayFile()获得
+	/// @param[out]	dur			返回文件总长度,单位：毫秒(ms)
+	[id(9), helpstring("method GetDuration")] HRESULT GetDuration([in] LONG filePlayHD, [out,retval] DWORD* dur);
+
+	///	登录PVG服务器
+	///	@param[in]	ipOrHost	PVG服务器的ip或dns
+	///	@param[in]	port		PVG服务器的服务端口
+	///	@param[in]	userName	登录用户名
+	///	@param[in]	passwd		登录密码
+	/// @param[out]	userHD		用户句柄,如果正确为非空值
+	[id(10), helpstring("method Login")] HRESULT Login([in] BSTR ipOrHost, [in] INT port, [in] BSTR userName, [in] BSTR passwd, [out,retval] LONG* userHD);
+
+	///	登出PVG服务器
+	///	@param[in]	userHD		登录句柄,由Login()获得
+	[id(11), helpstring("method Logout")] HRESULT Logout([in] LONG userHD, [out,retval] INT* ret);
+	
+	/// 列举对象
+	///	@param[in]	userHD		登录句柄,由Login()获得
+	/// @param[in]	objType		要列举的设备类型
+	/// 0x0002 - 网关服务器
+	/// 0x0004 - 接入设备
+	/// 0x0010 - 摄像头
+	/// 0x0020 - 监视器
+	/// 0x0040 - 对讲通道
+	/// 0x1000 - 报警输入
+	/// 0x2000 - 报警输出
+	/// @param[in]	serName		服务器名称,当为NULL或_T("")时，表示当前登录服务器
+	/// @param[out]	objCount	所列举的对象的个数
+	[id(12), helpstring("method ListObjects")] HRESULT ListObjects([in] LONG userHD, [in] INT objType, [in] BSTR serName, [out,retval] INT* objCount);
+	
+	/// 得到列举对象的信息
+	/// @param[in]	index		对象索引
+	/// @param[out]	objInfo		对象信息,json格式字符串
+	[id(13), helpstring("method GetObjectInfo")] HRESULT GetObjectInfo([in] unsigned index, [out,retval] BSTR* objInfo);
+	
+	/// 启动实时视频流
+	///	@param[in]	userHD		登录句柄,由Login()获得
+	///	@param[in]	avPath		AV对象名,通常为"av/"开头的字符串,例如"av/dcam/1"
+	/// @param[in]	streamNo	码流序号,从 0 开始,通常 0 为主码流
+	/// @param[in]	hwnd		窗口句柄
+	/// @param[out]	streamHD	返回实时流播放句柄
+	[id(19), helpstring("method StartStream")] HRESULT StartStream([in] LONG userHD, [in] BSTR avPath, [in] LONG hwnd, [out,retval] LONG* streamHD);
+
+	/// 停止实时视频流
+	///	@param[in]	streamHD	实时视频句柄,由StartStream()获得
+	[id(20), helpstring("method StopStream")] HRESULT StopStream([in] LONG streamHD, [out,retval] INT* ret);
+	
+	/// 保存实时视频流到本地文件
+	///	@param[in]	streamHD	登录句柄,由StartStream()获得
+	/// @param[in]	fileName	文件名,如:"D:\test.mbf" 或 "test.mbf"
+	[id(21), helpstring("method SaveStream")] HRESULT SaveStream([in] LONG streamHD, [in] BSTR fileName, [out,retval] INT* ret);
+
+	/// 停止保存实时视频流
+	///	@param[in]	streamHD	登录句柄,由StartStream()获得
+	[id(22), helpstring("method StopSaveStream")] HRESULT StopSaveStream([in] LONG streamHD, [out,retval] INT* ret);
+
+	/// 实时视频请求I帧
+	///	@param[in]	streamHD	实时视频句柄,由StartStream()获得
+	[id(23), helpstring("method StreamRequestIFrame")] HRESULT StreamRequestIFrame([in] LONG streamHD, [out,retval] INT* ret);
+
+	/// 开始服务端手动录像, 注:手动录像在登出后将会自动停止
+	///	@param[in]	userHD		登录句柄,由Login()获得
+	///	@param[in]	avPath		AV对象名,通常为"av/"开头的字符串,例如"av/dcam/1"
+	[id(24), helpstring("method StartRecord")] HRESULT StartRecord([in] LONG userHD, [in] BSTR avPath, [out,retval] INT* ret);
+
+	/// 停止服务端手动录像
+	///	@param[in]	userHD		登录句柄,由Login()获得
+	///	@param[in]	avPath		AV对象名,通常为"av/"开头的字符串,例如"av/dcam/1"
+	[id(25), helpstring("method StopRecord")] HRESULT StopRecord([in] LONG userHD, [in] BSTR avPath, [out,retval] INT* ret);
+
+	/// 云台控制
+	/// 注:云台的每一个动作都要调用该接口两次,前面两个参数一样,只是param一次为非0,一次为0
+	///	@param[in] userHD		登录句柄,由Login()获得
+	/// @param[in] avPath		AV对象名,通常为"av/"开头的字符串,例如"av/dcam/1"
+	/// @param[in] cmd			云台控制命令
+	/// 0 - 云台右转
+	/// 1 - 云台上仰和右转
+	/// 2 - 云台上仰
+	/// 3 - 云台上仰和左转
+	/// 4 - 云台左转
+	/// 5 - 云台下俯和左转
+	/// 6 - 云台下俯
+	/// 7 - 云台下俯和右转
+	/// 8 - 云台左右自动扫描
+	/// 9 - 云台停止
+	/// 10 - 光圈变化(param>0扩大、param<0缩小、param=0表示停止)
+	/// 11 - 焦距变大(param>0倍率变大、param<0倍率变小、param=0表示停止)
+	/// 12 - 聚焦调整(param>0前调、param<0后调、param=0表示停止)
+	/// 13 - 转到指定预置位
+	/// 14 - 设置当前位置为一个预置位
+	/// 15 - 接通辅助设备开关(param=1 表示开,param=0 表示关,其它值无效)
+	/// 16 - 清洗
+	/// 17 - 接通雨刷开关
+	/// 18 - 接通灯光电源
+	/// 19 - 电源
+	/// @param[in] param		控制参数
+	[id(26), helpstring("method PtzControl")] HRESULT PtzControl([in] LONG userHD, [in] BSTR avPath, [in] INT cmd, [in] INT param, [out,retval] INT* ret);
+
+	/// 查询录像
+	/// @param[in] userHD		登录句柄,由Login()获得
+	/// @param[in] avPath		摄像机通道名称
+	/// @param[in] vodType		0-服务器录像, 非0 录像所在的层数,最大值为256
+	/// @param[in] beginTime	起始时间, 格式："2012-01-01 13:20:00.000" 或 "20120101132000000"
+	/// @param[in] endTime		结束时间（不含）
+	/// @param[out] segCount	返回时间段个数
+	[id(28), helpstring("method QueryRecord")] HRESULT QueryRecord([in] LONG userHD, [in] BSTR avPath, [in] INT16 vodType, [in] BSTR beginTime, [in] BSTR endTime, [out,retval] INT* segCount);
+	
+	/// 得到录像时间段信息
+	/// @param[in]	index		对象索引
+	/// @param[out]	segInfo		时间段信息，json格式字符串
+	[id(29), helpstring("method GetSegmentInfo")] HRESULT GetSegmentInfo([in] unsigned index, [out,retval] BSTR* segInfo);
+
+	/// 播放录像
+	/// @param[in] userHD		登录句柄,由Login()获得
+	/// @param[in] avPath		摄像机通道名称
+	/// @param[in] vodType		0 - 服务器录像, 非0 - 录像所在的层数,最大值为256
+	/// @param[in] beginTime	开始时间,格式："2012-01-01 13:20:00.000" 或 "20120101132000000"
+	/// @param[in] endTime		结束时间（不含）
+	/// @param[in] hwnd			窗口句柄
+	/// @param[out] playbackHD	得到录像回放的句柄
+	[id(30), helpstring("method StartPlaybackStream")] HRESULT StartPlaybackStream([in] LONG userHD, [in] BSTR avPath, [in] INT16 vodType, [in] BSTR beginTime, [in] BSTR endTime, [in] LONG hwnd, [out,retval] LONG* playbackHD);
+	
+	/// 停止录像回放
+	/// @param[in] playbackHD	录像回放句柄,由StartPlaybackStream()得到
+	[id(31), helpstring("method StopPlaybackStream")] HRESULT StopPlaybackStream([in] LONG playbackHD, [out,retval] INT* ret);
+
+	/// 获取录像播放进度
+	/// @param[in]	playbackHD	录像回放句柄,由StartPlaybackStream()得到
+	/// @param[out] pos			返回当前的播放进度,相对于当前时间段开始时间的毫秒数
+	[id(32), helpstring("method GetPlaybackStreamPos")] HRESULT GetPlaybackStreamPos([in] LONG playbackHD, [out,retval] DWORD* pos);
+
+	/// 录像回放控制
+	/// @param[in] playbackHD	录像回放句柄,由LoginStartPlaybackStream()获得
+	/// @param[in]	command		控制命令
+	[id(34), helpstring("method PlaybackControl")] HRESULT PlaybackControl([in] LONG playbackHD, [in] INT command, [out,retval] INT* ret);
+	
+	/// 开始录像下载
+	/// @param[in] userHD		登录句柄,由LoginLogin()获得
+	/// @param[in] avPath		摄像机通道名称
+	/// @param[in] vodType		0 - 服务器录像, 非0 - 录像所在的层数,最大值为256
+	/// @param[in] beginTime	开始时间,格式："2012-01-01 13:20:00.000" 或 "20120101132000000"
+	/// @param[in] endTime		结束时间（不含）
+	/// @param[in] fileName		要保存的文件名,如:"D:\test.mbf" 或 "test.mbf"
+	/// @param[out] downloadHD	得到录像下载句柄
+	[id(35), helpstring("method StartDownloadRecord")] HRESULT StartDownloadRecord([in] LONG userHD, [in] BSTR avPath, [in] INT16 vodType, [in] BSTR beginTime, [in] BSTR endTime, [in] BSTR fileName, [out,retval] LONG* playbackHD);
+
+	/// 得到录像下载进度
+	/// @param[in]	playbackHD	录像下载句柄,由LoginSartDownloadRecord()得到
+	/// @param[out] pos			返回当前的播放进度,相对于当前时间段开始时间的毫秒数
+	[id(36), helpstring("method GetDownloadRecordPos")] HRESULT GetDownloadRecordPos([in] LONG downloadHD, [out,retval] DWORD* pos);
+
+	/// 停止录像下载
+	/// @param[in]	playbackHD	录像下载句柄,由LoginSartDownloadRecord()得到
+	[id(37), helpstring("method StopDownloadRecord")] HRESULT StopDownloadRecord([in] LONG downloadHD, [out,retval] INT* ret);
+	
+	///	获取色彩值
+	/// @param[in]	liveHD		流句柄，由LoginStartStream()或LoginStartPlaybackStream()获得
+	/// @param[out] colorInfo	得到颜色信息，json格式的字符串
+	[id(41), helpstring("method GetColor")] HRESULT GetColor([in] LONG liveHD, [out,retval] BSTR* colorInfo);
+
+	///	设置色彩值
+	/// @param[in]	liveHD		流句柄，由LoginStartStream()或LoginStartPlaybackStream()获得
+	/// @param[in]	brightness	亮度，  值为[-127,127]
+	/// @param[in]	contrast	对比度，值为[-127,127]
+	/// @param[in]	saturation	饱和度，值为[-127,127]
+	/// @param[in]	hue			色调，  值为[-127,127]
+	[id(42), helpstring("method SetColor")] HRESULT SetColor([in] LONG liveHD, [in] INT brightness, [in] INT contrast, [in] INT saturation, [in] INT hue);
+};
+[ uuid(DF4C917D-647C-4824-BC1A-2F174156A343), version(1.0),
+  helpfile("np_pixlivesdk.hlp"),
+  helpstring("np_pixlivesdk ActiveX Control module"),
+  control ]
+library np_pixlivesdkLib
+{
+	importlib(STDOLE_TLB);
+
+	//  Primary dispatch interface for Cnp_pixlivesdkCtrl
+
+	[ uuid(0E323549-DB85-4616-8230-7F7CF6B483BF),
+	  helpstring("Dispatch interface for np_pixlivesdk Control")]
+	dispinterface _Dnp_pixlivesdk
+	{
+		properties:
+		methods:
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for Cnp_pixlivesdkCtrl
+
+	[ uuid(EB4711A0-6A52-4800-A6E7-CF674A509CF5),
+	  helpstring("Event interface for np_pixlivesdk Control") ]
+	dispinterface _Dnp_pixlivesdkEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+	};
+
+	//  Class information for Cnp_pixlivesdkCtrl
+
+	[ uuid(7529CEE7-6982-47D0-AF2C-1DA07EA27B13),
+	  helpstring("np_pixlivesdk Control"), control ]
+	coclass np_pixlivesdk
+	{
+		[default] dispinterface _Dnp_pixlivesdk;
+		[default, source] dispinterface _Dnp_pixlivesdkEvents;
+	};
+
+	[
+		uuid(CDF01DAB-AF9C-4163-83FF-98EA3BF3FF80),
+		helpstring("NPLiveSDK Class")
+	]
+	coclass NPLiveSDK
+	{
+		[default] interface INPLiveSDK;
+	};
+};

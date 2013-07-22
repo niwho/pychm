@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="г╟ят">
+		<param name="Local" value="pre.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Cleanup">
+		<param name="Local" value="Cleanup.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetColor">
+		<param name="Local" value="GetColor.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetDownloadRecordPos">
+		<param name="Local" value="GetDownloadRecordPos.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetDuration">
+		<param name="Local" value="GetDuration.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetObjectInfo">
+		<param name="Local" value="GetObjectInfo.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetPlayPosition">
+		<param name="Local" value="GetPlayPosition.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetPlaySpeed">
+		<param name="Local" value="GetPlaySpeed.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetPlayStatus">
+		<param name="Local" value="GetPlayStatus.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetSegmentInfo">
+		<param name="Local" value="GetSegmentInfo.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Init">
+		<param name="Local" value="Init.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ListObjects">
+		<param name="Local" value="ListObjects.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Login">
+		<param name="Local" value="Login.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Logout">
+		<param name="Local" value="Logout.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="PlaybackControl">
+		<param name="Local" value="PlaybackControl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="PlayFile">
+		<param name="Local" value="PlayFile.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="PlayFileControl">
+		<param name="Local" value="PlayFileControl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="PtzControl">
+		<param name="Local" value="PtzControl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="QueryRecord">
+		<param name="Local" value="QueryRecord.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SaveStream">
+		<param name="Local" value="SaveStream.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SetColor">
+		<param name="Local" value="SetColor.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="StartDownloadRecord">
+		<param name="Local" value="StartDownloadRecord.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="StartPlaybackStream">
+		<param name="Local" value="StartPlaybackStream.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="StopPlayFile">
+		<param name="Local" value="StopPlayFile.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="StopRecord">
+		<param name="Local" value="StopRecord.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="StopSaveStream">
+		<param name="Local" value="StopSaveStream.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="StopStream">
+		<param name="Local" value="StopStream.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="StreamRequestIFrame">
+		<param name="Local" value="StreamRequestIFrame.htm">
+		</OBJECT>
+</UL>
+</BODY></HTML>

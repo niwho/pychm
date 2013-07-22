@@ -1,0 +1,13 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=PVG6.7客户端PIXLiveSDK使用手册.chm
+Contents file=test.hhc
+Default topic=pre.htm
+Display compile progress=No
+Index file=test.hhk
+Language=0x804 中文(简体，中国)
+Title=PVG6.7客户端PIXLiveSDK使用手册 
+
+
+[INFOTYPES]
+
